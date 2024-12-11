@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 class ListProvider extends ChangeNotifier{
-  List<Map<String, dynamic>> _mdata = [];
+  final List<Map<String, dynamic>> _mdata = [];
+
   void add(){
     _mdata.add(
         {
@@ -12,4 +13,13 @@ class ListProvider extends ChangeNotifier{
     notifyListeners();
   }
   List<Map<String, dynamic>> getData() => _mdata;
+  void update(int index){
+      _mdata[index]["name"] = "Raghav R. chandera";
+      _mdata[index]["mNo"] = "9481523722";
+      notifyListeners();
+  }
+  void delete(int index) {
+    _mdata.removeAt(index);
+    notifyListeners();
+  }
 }

@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:provider_project/list_provider.dart';
 // List<Map<String, dynamic>> mdata = [];
 class ListPage extends StatefulWidget{
+  const ListPage({super.key});
+
   @override
   State<ListPage> createState() => _ListPageState();
 }
@@ -11,7 +13,8 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
-    var mdata = Provider.of<ListProvider>(context).getData();
+    // var mdata = Provider.of<ListProvider>(context).getData();
+    var mdata = context.watch<ListProvider>().getData();
     return Scaffold(
       appBar: AppBar(
         title: const Text("List Page"),
@@ -21,16 +24,25 @@ class _ListPageState extends State<ListPage> {
         return ListTile(
           title: Text(mdata[index]["name"]),
           subtitle: Text(mdata[index]["mNo"]),
+          trailing: SizedBox(width : 100, child: Row( children: [
+            InkWell(onTap: (){
+              context.read<ListProvider>().update(index);
+            }, child: const Icon(Icons.edit_note_outlined)),
+            InkWell(onTap: (){
+              context.read<ListProvider>().delete(index);
+            }, child: const Icon(Icons.delete_outline_outlined, color: Colors.red,))],)),
         );
       }),
       floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondPage()));
       }, child: const Icon(Icons.add),),
     );
   }
 }
 
 class SecondPage extends StatelessWidget{
+  const SecondPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +55,8 @@ class SecondPage extends StatelessWidget{
           //       "mNo" : "8481523725"
           //     }
           // );setState((){});
-         Provider.of<ListProvider>(context, listen: false).add();
+         // Provider.of<ListProvider>(context, listen: false).add();
+          context.read<ListProvider>().add();
         }, child: const Icon(Icons.add)),
       ),
     );
