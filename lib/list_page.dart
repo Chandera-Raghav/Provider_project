@@ -26,7 +26,7 @@ class _ListPageState extends State<ListPage> {
           subtitle: Text(mdata[index]["mNo"]),
           trailing: SizedBox(width : 100, child: Row( children: [
             InkWell(onTap: (){
-              context.read<ListProvider>().update(index);
+              context.read<ListProvider>().update(index: index, name: "Raghav R. chandera", mno: "9848103722");
             }, child: const Icon(Icons.edit_note_outlined)),
             InkWell(onTap: (){
               context.read<ListProvider>().delete(index);

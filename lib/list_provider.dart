@@ -13,12 +13,12 @@ class ListProvider extends ChangeNotifier{
     notifyListeners();
   }
   List<Map<String, dynamic>> getData() => _mdata;
-  void update(int index){
-      _mdata[index]["name"] = "Raghav R. chandera";
-      _mdata[index]["mNo"] = "9481523722";
+  void update({required int index, required String name, required String mno}){
+      _mdata[index] = { "name" : name,
+       "mNo" : mno };
       notifyListeners();
   }
-  void delete(int index) {
+  void delete({required int index}) {
     _mdata.removeAt(index);
     notifyListeners();
   }
