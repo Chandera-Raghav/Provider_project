@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_project/counter_provider.dart';
+import 'package:provider_project/list_page.dart';
+import 'package:provider_project/list_provider.dart';
 import 'package:provider_project/second_provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(create: (context) => CounterProvider(), child: const MyApp()));
+  runApp(ChangeNotifierProvider(
+      create: (context) => ListProvider(),
+      child: ChangeNotifierProvider(
+          create: (context) => CounterProvider(), child: const MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:MyHomePage(),
+      home: ListPage(),
     );
   }
 }
@@ -22,12 +27,9 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -59,10 +61,15 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SecondProviderPage(),));
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SecondProviderPage(),
+              ));
         },
-      tooltip: 'Increment',
+        tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
     );
